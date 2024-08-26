@@ -168,17 +168,17 @@ Mit dieser Belegung definieren wir die Semantik der Aussagenlogik wie folgt:
   $
     &0^J &&:= 0\
     &1^J &&:= 1\
-    &p_i^frak(J) &&:= J(p_i) \
-    &(not phi)^frak(J) &&:= 1 - phi^frak(J) \
-    &(phi or psi)^frak(J) &&:= max(phi^frak(J), psi^frak(J)) \
-    &(phi and psi)^frak(J) &&:= min(phi^frak(J), psi^frak(J)) \
-    &(phi arrow.r psi)^frak(J) &&:= (not phi or psi)^frak(J) \
-    &(phi arrow.r.l psi)^frak(J) &&:= ((phi and psi) or (not phi and not psi))^frak(J)
+    &p_i^frak(I) &&:= J(p_i) \
+    &(not phi)^frak(I) &&:= 1 - phi^frak(I) \
+    &(phi or psi)^frak(I) &&:= max(phi^frak(I), psi^frak(I)) \
+    &(phi and psi)^frak(I) &&:= min(phi^frak(I), psi^frak(I)) \
+    &(phi arrow.r psi)^frak(I) &&:= (not phi or psi)^frak(I) \
+    &(phi arrow.r.l psi)^frak(I) &&:= ((phi and psi) or (not phi and not psi))^frak(I)
   $
 ]
 #pagebreak()
 === Modell
-Eine Interpretation $frak(I)$ einer Formel $phi$ mit $phi^frak(J) = 1$.
+Eine Interpretation $frak(I)$ einer Formel $phi$ mit $phi^frak(I) = 1$.
 
 #grid(
   columns: (1fr, 1fr, 1fr),
@@ -186,11 +186,11 @@ Eine Interpretation $frak(I)$ einer Formel $phi$ mit $phi^frak(J) = 1$.
     Schreibweisen: \
     #definition((
       (
-        $frak(J) models phi$,
+        $frak(I) models phi$,
         "Modell",
       ),
       (
-        $frak(J) cancel(models) phi$,
+        $frak(I) cancel(models) phi$,
         "Kein Modell",
       ),
     ))
@@ -198,10 +198,10 @@ Eine Interpretation $frak(I)$ einer Formel $phi$ mit $phi^frak(J) = 1$.
   [],
   [
     Sprechweisen: \
-    Gilt $frak(J) models phi$ so sagen wir:
-    - $frak(J)$ erfüllt $phi$,
-    - $frak(J)$ erfüllt $phi$,
-    - $phi$ ist wahr unter $frak(J)$.
+    Gilt $frak(I) models phi$ so sagen wir:
+    - $frak(I)$ erfüllt $phi$,
+    - $frak(I)$ erfüllt $phi$,
+    - $phi$ ist wahr unter $frak(I)$.
   ],
 )
 === Irrelevanz nicht vorkommender Variablen (Koinzidenzlemma)
@@ -212,9 +212,9 @@ Der Wahrheitswert einer Formel $phi$ hängt nur von der Belegung der in $phi$ vo
 Notation:
 - Wir schreiben $phi(p_1,dots,p_t)$, um anzudeuten, dass die Variablen ${p_1,dots,p_t}$ in der Formel $phi$ vorkommen.
 === Erfüllbarkeit, Tautologien und Widersprüchlichkeit
-+ Eine Formel $phi$ heißt *Tautologie* (oder *allgemeingültig*), geschrieben $models phi$, falls $phi^frak(J) = 1$, falls $phi^frak(J) = 1$ für jede Belegung $frak(J)$.
-+ $phi$ heißt *erfüllbar*, falls es eine Belegung $frak(J)$ gibt mit $phi^frak(J) = 1$.
-+ $phi$ heißt *widerspruchsvoll* (oder *widersprüchlich*), falls $phi^frak(J) = 0$ für jede Belegung $frak(J)$.
++ Eine Formel $phi$ heißt *Tautologie* (oder *allgemeingültig*), geschrieben $models phi$, falls $phi^frak(I) = 1$, falls $phi^frak(I) = 1$ für jede Belegung $frak(I)$.
++ $phi$ heißt *erfüllbar*, falls es eine Belegung $frak(I)$ gibt mit $phi^frak(I) = 1$.
++ $phi$ heißt *widerspruchsvoll* (oder *widersprüchlich*), falls $phi^frak(I) = 0$ für jede Belegung $frak(I)$.
 
 Selbiges gilt für Mengen von Formeln $Phi$. \
 Die *Menge der Tautologien TAUT* ist eine Teilmenge von *SAT, der Menge aller erfüllbaren Formeln*. TAUT $subset.eq$ SAT.
