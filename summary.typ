@@ -145,3 +145,67 @@ Dabei gilt folgende Operatorenpräzedenz in absteigender Reihenfolge:
 + $arrow.r$
 + $arrow.r.l$
 Bei aufeinander folgenden $and$ oder $or$ von links nach rechts.
+
+== Semantik
+Die Semantik einer Logik ordnet den Formeln eine Bedeutung zu. \
+Um den Wahrheitswert von Formeln zu bestimmen, definieren wir unsere Aussagenvariablen $BB := {0, 1}$ als die Menge der *Booleschen Konstanten*.
+
+=== Interpretationen (Belegungen)
+Eine Belegung der Variablen bezeichnen wir mit $frak("I")$.
+
+Mit dieser Belegung definieren wir die Semantik der Aussagenlogik wie folgt:
+
+#align(center)[
+  $
+    &0^J &&:= 0\
+    &1^J &&:= 1\
+    &p_i^frak(J) &&:= J(p_i) \
+    &(not phi)^frak(J) &&:= 1 - phi^frak(J) \
+    &(phi or psi)^frak(J) &&:= max(phi^frak(J), psi^frak(J)) \
+    &(phi and psi)^frak(J) &&:= min(phi^frak(J), psi^frak(J)) \
+    &(phi arrow.r psi)^frak(J) &&:= (not phi or psi)^frak(J) \
+    &(phi arrow.r.l psi)^frak(J) &&:= ((phi and psi) or (not phi and not psi))^frak(J)
+  $
+]
+#pagebreak()
+=== Modell
+Eine Interpretation $frak(I)$ einer Formel $phi$ mit $phi^frak(J) = 1$.
+
+#grid(
+  columns: (1fr, 1fr, 1fr),
+  [
+    Schreibweisen: \
+    #definition((
+      (
+        $frak(J) models phi$,
+        "Modell",
+      ),
+      (
+        $frak(J) cancel(models) phi$,
+        "Kein Modell",
+      ),
+    ))
+  ],
+  [],
+  [
+    Sprechweisen: \
+    Gilt $frak(J) models phi$ so sagen wir:
+    - $frak(J)$ erfüllt $phi$,
+    - $frak(J)$ erfüllt $phi$,
+    - $phi$ ist wahr unter $frak(J)$.
+  ],
+)
+=== Irrelevanz nicht vorkommender Variablen (Koinzidenzlemma)
+Der Wahrheitswert einer Formel $phi$ hängt nur von der Belegung der in $phi$ vorkommenden Variablen ab.
+- Wir müssen daher nur endlich viele Belegungen prüfen, um die möglichen Wahrheitswerte zu bestimmen.
+- Zum Beispiel alle Belegungen, bei denen nicht vorkommende Variablen = 0 sind.
+
+Notation:
+- Wir schreiben $phi(p_1,dots,p_t)$, um anzudeuten, dass die Variablen ${p_1,dots,p_t}$ in der Formel $phi$ vorkommen.
+=== Erfüllbarkeit, Tautologien und Widersprüchlichkeit
++ Eine Formel $phi$ heißt *Tautologie* (oder *allgemeingültig*), geschrieben $models phi$, falls $phi^frak(J) = 1$, falls $phi^frak(J) = 1$ für jede Belegung $frak(J)$.
++ $phi$ heißt *erfüllbar*, falls es eine Belegung $frak(J)$ gibt mit $phi^frak(J) = 1$.
++ $phi$ heißt *widerspruchsvoll* (oder *widersprüchlich*), falls $phi^frak(J) = 0$ für jede Belegung $frak(J)$.
+
+Selbiges gilt für Mengen von Formeln $Phi$. \
+Die *Menge der Tautologien TAUT* ist eine Teilmenge von *SAT, der Menge aller erfüllbaren Formeln*. TAUT $subset.eq$ SAT.
