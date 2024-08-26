@@ -1,5 +1,14 @@
 #show math.equation: set text(blue)
 
+#set text(font: "Microsoft Sans Serif")
+
+#show heading.where(level: 1): set text(orange)
+
+#show heading.where(level: 2): set text(purple)
+
+#show heading.where(level: 3): set text(rgb(10, 150, 10))
+
+
 #let name(body) = {
   set text(red)
   set align(right)
