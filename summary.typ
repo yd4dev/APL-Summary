@@ -283,3 +283,6 @@ Zu jeder Booleschen Funktion $f$ gibt es eine KNF-Formel mit $l$ Variablen der L
 - Da Konjunktionen und Disjunktionen assoziativ sind, ist die Reihenfolge der Literale in Klauseln und der Klauseln in einer Formel in KNF irrelevant.
   - Daher können wir Klauseln als *Mengen von Literalen* auffassen und KNF-Formeln als *Mengen von Klauseln*.
 Beispiel: $(p or q) and (p or not q)$ wird zu ${{p,q}, {p,not q}}$.
+
+= Der Kompaktheitssatz
+Die Formelmenge $Phi$ ist genau dann erfüllbar, wenn jede *endliche* Teilemge von $Phi$ erfüllbar ist.
