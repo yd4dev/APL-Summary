@@ -217,3 +217,69 @@ Notation:
 
 Selbiges gilt für Mengen von Formeln $Phi$. \
 Die *Menge der Tautologien TAUT* ist eine Teilmenge von *SAT, der Menge aller erfüllbaren Formeln*. TAUT $subset.eq$ SAT.
+
+== Semantische Folgerung
+Die Formel $phi$ ist *logische Folgerung* von $Phi$, falls für jede Interpretation
+$frak(I)$, die $Phi$ erfüllt, $phi^frak(I) = 1$ gilt.
+
+=== Grundlegende semantische Folgerungen
++ $phi$ ist allgemeingültig genau dann, wenn $not phi$ widerspruchsvoll ist.
++ Es gilt $emptyset models phi$ genau dann, wenn $phi$ Tautologie ist, also $models phi$.
++ Ist $Phi$ nicht erfüllbar, dann gilt $Phi models phi$ für alle $phi in AL$.
++ Sei $Phi' subset.eq Phi$. Ist $Phi$ erfüllbar, dann ist auch $Phi'$ erfüllbar.
++ Es gilt $Phi models psi$ für alle $psi in Phi$.
++ Falls $Phi' subset.eq Phi$, dann impliziert $Psi' models phi$ auch $Psi models phi$.
++ Es gilt $Phi models phi$ genau dann, wenn $Phi union {not phi}$ nichr erfüllbar ist.
+=== Entscheidbarkeit semantischer Fragen
++ Es ist entscheidbar, ob eine endliche Menge $Phi subset.eq AL$ erfüllbar ist.
++ Es ist entscheidbar, ob für eine gegebene endliche Menge $Phi subset.eq AL$ und ein $phi in AL$ gilt, dass $Phi models phi$.
++ Die Mengen $text("TAUT")$ und $text("SAT")$ sind entscheidbar.
+
+=== Deduktionstheorem (semantische Version)
+$Phi union {phi} models psi$ genau dann, wenn $Phi models (phi arrow.r psi)$ gilt.
+=== Modus Ponens (semantische Version)
+- Es gilt ${phi, phi models psi} models psi$
+
+== Logische Äquivalenz
+Formeln heißen *logisch äquivalent*, geschrieben $phi equiv psi$, falls für jede Belegung $frak(I)$ gilt: $phi^frak(I) = psi^frak(I)$.
+
+=== Gesetze von De Morgan
+- $not(phi and psi) equiv not phi or not psi$ und
+- $(phi or psi) equiv not phi and not psi$.
+
+=== Operatorenvermeidung
+- $phi arrow.r psi equiv not phi or psi$,
+- $phi arrow.l.r psi equiv (phi arrow.r psi) and (psi arrow.r phi)$,
+- $phi or psi equiv not phi arrow.r psi$ und
+- $phi and psi equiv not(phi arrow.r not psi)$.
+Zu jeder Formel $phi$ gibt es äquivalente Formeln, die nur
++ $arrow.r$ und $not$ als Verknüpfungen enthält,
++ $and$ und $not$ als Verknüpfungen enthält und
++ $or$ und $not$ als Verknüpfungen enthält.
+
+== Normalformen
+Eine Normalform einer Formel $phi$ ist eine äquivalente Formel $T(phi)$, die gewissen Einschränkungen unterliegt.
+- *Einschränkungen* können strukturell sein oder Eindeutigkeit erfordern.
+- *Äquivalenz* kann bedeuten
+  - logisch äquivalent: $phi equiv T(phi)$
+  - erfüllbarkeitsäquivalent: $phi$ ist erfüllbar genau dann, wenn $T(phi)$ erfüllbar ist
+- Für jede Formel existiert eine Formel in Normalform.
+- Jede Formel in Normalform gehört zur Logik selbst.
+
+=== Negationsnormalform
+- Für $p in V$ sind $p$ und $not p$ in Negationsnormalform.
+- Sind $phi, psi$ in Negationsnormalform, dann sind auch $(phi or psi)$ und $(phi and psi)$ in Negationsnormalform.
+=== Konjunktive und Disjunktive Normalformen
+- Eine Formel $phi$ heißt *Literal*, wenn $phi in V$ oder $phi = (not phi')$ mit $phi' in V$.
+- Eine Formel $phi$ heißt *Klausel*, wenn $phi$ eine Disjunktion (Veroderung) von Literalen.
+  - Hat eine Klausel höchstens höchstens $k$ Literale, heißt sie *k-Klausel*.
+  - 1-Klauseln werden *Unit-Klauseln* genannt.
+- Eine Formel $phi$ ist in *konjunktiver Normalform*, wenn $phi$ eine Konjunktion (Verundung) von Klauseln ist.
+
+  - Analog: Eine Formel ist in *disjunktiver Normalform*, wenn sie eine Disjunktion (Veroderung) von Konjunktionen (Verundungen) ist.
+
+Zu jeder Booleschen Funktion $f$ gibt es eine KNF-Formel mit $l$ Variablen der Länge $O(l 2^l)$
+=== Konjunktive Normalform als Menge
+- Da Konjunktionen und Disjunktionen assoziativ sind, ist die Reihenfolge der Literale in Klauseln und der Klauseln in einer Formel in KNF irrelevant.
+  - Daher können wir Klauseln als *Mengen von Literalen* auffassen und KNF-Formeln als *Mengen von Klauseln*.
+Beispiel: $(p or q) and (p or not q)$ wird zu ${{p,q}, {p,not q}}$.
