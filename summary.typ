@@ -142,10 +142,7 @@ Daraus folgt:
 - Jede Formel beginnt mit $($ und endet mit $)$.
 
 === Eindeutigkeitssatz
-Für jede Formel $phi$ gilt genau eine der folgenden Eigenschaften:
-+ $phi$ ist atomar,
-+ $phi = (not phi_1)$ für ein $phi_1 in text("AL")$ oder
-+ $phi = (phi_1 circle.small phi_2)$ für ein $circle.small in {and, or, arrow.r, arrow.l.r}$ und $phi_1, phi_2 in text("AL")$.
+Für jede Formel $phi$ ist atomar oder entsteht auf eindeutige Weise aus kürzeren Formeln.
 
 === Klammern weglassen
 Um Formeln wie $((not phi) or ((not psi) and (not phi)))$ zu vermeiden, lassen wir Klammern weg. \
