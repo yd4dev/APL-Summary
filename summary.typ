@@ -286,3 +286,160 @@ Beispiel: $(p or q) and (p or not q)$ wird zu ${{p,q}, {p,not q}}$.
 
 = Der Kompaktheitssatz
 Die Formelmenge $Phi$ ist genau dann erfüllbar, wenn jede *endliche* Teilemge von $Phi$ erfüllbar ist.
+
+= Kalküle und Algorithmen für die Aussagenlogik
+== Deduktive Systeme und Kalküle
+Ein *deduktives System* (auch *Beweiskalkül*) besteht aus Axiomen und Regeln, mit denen wir wahre Aussagen/Formeln ableiten (formal beweisen). \
+Wir haben also zwei Möglichkeiten die Gültigkeit von Formeln zu prüfen:
+- Durch Anwendung der Semantik.
+- Durch Ableiten in einem deduktiven System.
+
+Ein *deduktives System* $cal(F)$ besteht aus
+#definition(
+  (
+    (
+      $text("einem endlichen Alphabet ") Sigma text(",")$,
+      " ",
+    ),
+    (
+      $text("einer Formelmenge") F subset.eq Sigma^* text(",")$,
+      "(wohlgeformte Formeln)",
+    ),
+    (
+      $text("einer Menge von Axiomen") A x subset.eq F text("und")$,
+      "(Axiome)",
+    ),
+    (
+      $text("einer Menge") R subset.eq F^* text("von Regeln.")$,
+      "(Regeln)",
+    ),
+  ),
+  num: true,
+)
+Für eine Regel $r = (phi_1,dots,phi_n,phi) in R$ schreiben wir auch $frac(phi_1\,dots\,phi_n,phi)$. \
+Die Formeln $phi_1,dots,phi_n$ heißen *Prämissen*, und die Formel $phi$ heißt *Konklusion* von $r$. \
+
+Das System heißt *entscheidbar*, wenn die Mengen $F, A x$ und $R$ entscheidbar sind.
+
+Ein deduktives System heißt
+- *korrekt*, wenn alle herleitbaren Aussagen gültig sind, und
+- *vollständig*, wenn alle gültigen Aussagen herleitbar sind.
+
+=== Herleitbarkeit in Deduktiven Systemen
+Die Menge $T(cal(F))$ der *Theoreme* des deduktiven Systems $cal(F)$ ist induktiv definiert durch:
+#definition((
+  (
+    $A x subset.eq T(cal(F)).$,
+    "(alle Axiome sind Theoreme)",
+  ),
+  (
+    "Sind " + $phi_1,dots,phi_n in T(
+        cal(F)
+      )$ + " und ist " + $frac(phi_1\,dots\,phi_n,phi)$ + " in " + $R$ + ", dann ist " + $phi in T(cal(F))$ + ".",
+    " ",
+  ),
+  (
+    $T$ + " ist die kleinste Menge von Formeln, die 1 und 2 erfüllt.",
+    " ",
+  ),
+))
+Wir schreiben $tack.r \ _cal(F) phi$, falls $phi in T(cal(F))$, und sagen, $phi$ ist in $cal(F)$ herleitbar. \
+
+=== Deduktiver Folgerungsbegriff
+Sei $Phi subset.eq F, phi in F$.
+Dann ist $phi$ in $cal(F)$ aus $Phi$ herleitbar, geschrieben $Phi tack.r\ _cal(F)phi$, falls $tack.r\ _((Sigma,F,A x union Phi, R)) phi$ gilt. \
+Geht $cal(F)$ aus dem Kontext hervor, schreiben wir auch $tack.r\ _phi$ bzw. $Phi tack phi$.
+
+=== Das deduktive System $cal(P)_2$
+*Axiome*: \
+Ax1: $A arrow.r (B arrow.r A)$ \
+Ax2: $(A arrow.r (B arrow.r C)) arrow.r ((A arrow.r B) arrow.r (A arrow.r C))$ \
+Ax3: $(not A arrow.r not B) arrow.r (B arrow.r A)$ \
+*Regeln*: \
+MP: $frac(A\,(A arrow.r B), B)$ (modus ponens)
+
+Das System $cal(P)_2$ ist korrekt und vollständig.
+
+=== Der Sequenzenkalkül
+Sei $F$ eine Menge von Formeln. \
+Eine *Sequenz* ist ein Paar $(Gamma, Delta)$, geschrieben $Gamma arrow.double\ _G Delta$, wobei $Gamma,Delta subset.eq F$ endliche Mengen sind. \
+
+Die Sequenz ${phi_1,dots,phi_n} arrow.double\ _G {psi_1,dots,psi_m}$ entspricht semantisch $(phi_1 and dots and phi_n) arrow.r (psi_1 or dots or psi_m)$
+
+Die Menge der *Sequenzen* bezeichnen wir mit $F_G$.
+
+
+
+Axiome
+#grid(
+  columns: (1fr, 1fr, 1fr),
+  align: center,
+  [
+    (Ax)$frac("",Gamma\, A arrow.double\ _G A\, Delta)$
+  ],
+  [
+    (0-Ax)$frac("",Gamma\,0 arrow.double\ _G Delta)$
+  ],
+  [
+    (1-Ax)$frac("",Gamma arrow.double\ _G 1\, Delta)$
+  ],
+)
+Regeln
+#grid(
+  columns: (1fr, 1fr),
+  align: center,
+  [
+    $
+      &(L_not) &&frac(Gamma arrow.double\ _G A\, Delta,Gamma\, not A arrow.double\ _G Delta) \
+      &(L_and) &&frac(Gamma\, A\, B arrow.double\ _G Delta, Gamma\, A and B arrow.double\ _G Delta) \
+      &(
+        L_or
+      ) &&frac(Gamma\, A arrow.double\ _G Delta\;space.quad Gamma\, B arrow.double\ _G Delta, Gamma\,A or B arrow.double\ _G Delta) \
+      &(
+        L_arrow.r
+      ) &&frac(Gamma arrow.double\ _G A\,Delta\; space.quad Gamma\, B arrow.double\ _G Delta, Gamma\, A arrow.r B arrow.double\ _G Delta)
+    $
+
+  ],
+  [
+    $
+      &(R_not) &&frac(Gamma\, A arrow.double\ _G Delta,Gamma arrow.double\ _G not A\,  Delta) \
+      &(
+        R_and
+      ) &&frac(Gamma arrow.double\ _G A\, Delta\; space.quad Gamma arrow.double\ _G B\, Delta, Gamma arrow.double\ _G A and B\, Delta) \
+      &(R_or) &&frac(Gamma arrow.double\ _G A\, B\, Delta, Gamma arrow.double\ _G A or B\, Delta) \
+      &(R_arrow.r) &&frac(Gamma\, A arrow.double\ _G Delta\,B, Gamma arrow.double\ _G A arrow.r B\, Delta)
+    $
+  ],
+)
+
+=== Die Schnittregel im Sequenzenkalkül
+#align(center)[
+  $
+    frac(Gamma arrow.double\ _G A\,Delta\; space.quad Gamma'\, A arrow.double\ _G Delta', Gamma\,Gamma' arrow.double\ _G Delta\, Delta') text(" (Cut)")
+  $
+]
+Da der Kalkül vollständig ist und die Schnittregel gültig, sind alle Sequenzen, die mit
+Schnittregel herleitbar sind, auch ohne Schnittregel herleitbar (wenn möglicherweise auch nur
+deutlich umständlicher).
+
+=== Resolution
+Resolution ist ein Beweiskalkül, mit dem wir die Unerfüllbarkeit von Formeln in konjunktiver Normalform nachweisen können. \
+Kann die *leere Klausel* $union.sq$ abgeleitet werden, dann ist die ursprüngliche Klauselmenge nicht erfüllbar.
+
+Für zwei Klauseln $phi_1, phi_2$ und eine Variable $p_i in V$ heißt die Klausel $phi = (phi_1 \\ {p_i}) union (phi_2 \\ {not p_i})$ die *Resolvente* von $phi_1$ und $phi_2$ nach $p_i$.
+
+Die einzige *Regel im Resolutionskalkül* ist wie folgt:
+- Aus zwei Klauseln können wir deren Resolvente (nach einem beliebigen $p_i$) ableiten.
+
+=== Horn-Klauseln
+- Eine Klausel ist *positiv*, wenn sie eine Disjunktion von positiven Literalen ist.
+- Eine Klausel ist *negativ*, wenn sie eine Disjunktion von negativen Literalen ist.
+- Eine *Horn-Klausel* ist eine Klausel mit höchstens einem positiven Literal
+
+=== Der DPLL-Algorithmus
+*Substitution*: Einsetzen eines Wahrheitswertes in eine Formel
+
+*DPLL-Algorithmus*:
+- rekursiver Algorithmus für SAT
+- Erfüllbarkeit von $phi$ wird zurückgeführt auf Erfüllbarkeit von $phi[p arrow.r.bar 0]$ und $phi[p arrow.bar.r 1]$.
