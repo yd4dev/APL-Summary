@@ -8,6 +8,8 @@
 
 #show heading.where(level: 3): set text(rgb(10, 150, 10))
 
+#let AL = text("AL")
+
 
 #let name(body) = {
   set text(red)
@@ -87,40 +89,40 @@ Die *Formeln* (Aussagen) sind folgendermaßen definiert:
 #definition(
   (
     (
-      $0, 1 in text("AL")$,
+      $0, 1 in AL$,
       "Konstanten",
     ),
     (
-      $V subset.eq text("AL")$,
+      $V subset.eq AL$,
       "Variablen",
     ),
     (
       $text("Für alle") phi, psi in text("AL ist")$ + definition((
         (
-          $(not psi) in text("AL")$,
+          $(not psi) in AL$,
           "Negation",
         ),
         (
-          $(phi and psi) in text("AL")$,
+          $(phi and psi) in AL$,
           "Konjunktion",
         ),
         (
-          $(phi or psi) in text("AL")$,
+          $(phi or psi) in AL$,
           "Disjunktion",
         ),
         (
-          $(phi arrow.r psi) in text("AL")$,
+          $(phi arrow.r psi) in AL$,
           "Implikation",
         ),
         (
-          $(phi arrow.l.r psi) in text("AL")$,
+          $(phi arrow.l.r psi) in AL$,
           "Äquivalenz",
         ),
       )),
       "",
     ),
     (
-      $text("AL")$ + " ist die kleinste Menge, die die Eigenschaften 1., 2. und 3. erfüllt.",
+      $AL$ + " ist die kleinste Menge, die die Eigenschaften 1., 2. und 3. erfüllt.",
       "",
     ),
   ),
@@ -136,7 +138,7 @@ $\#_a (w)$ ist die Anzahl $a$ in $w$.
 + Alle Formeln haben gleich viele öffnende wie schließende Klammern: $\#_(\() (psi)= \#_(\)) (psi)$.
 
 Daraus folgt:
-- Ein echtes Präfix einer Formel liegt nicht in $text("AL")$.
+- Ein echtes Präfix einer Formel liegt nicht in $AL$.
 - Jede Formel beginnt mit $($ und endet mit $)$.
 
 === Eindeutigkeitssatz
