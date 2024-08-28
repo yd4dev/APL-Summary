@@ -1,10 +1,24 @@
 #show math.equation: set text(blue)
 
-#set text(font: "Microsoft Sans Serif")
+#set text(font: "Arial")
+
+#set page(footer: context [
+  #align(center)[
+    #counter(page).display(
+      " - 1 / 1 -",
+      both: true,
+    )]
+])
 
 #show heading.where(level: 1): set text(orange)
 
 #show heading.where(level: 2): set text(purple)
+
+#show par: set block(spacing: 0.65em)
+#set par(
+  first-line-indent: 1em,
+  justify: true,
+)
 
 #show heading.where(level: 3): set text(rgb(10, 150, 10))
 
@@ -48,6 +62,15 @@
     ],
   )
 }
+
+#set heading(numbering: "1.")
+
+#show outline.entry.where(level: 1): it => {
+  v(12pt, weak: true)
+  strong(it)
+}
+
+#outline(depth: 2, indent: auto)
 
 = Logik
 == Komponenten
@@ -129,8 +152,6 @@ Die *Formeln* (Aussagen) sind folgendermaßen definiert:
   num: true,
 )
 
-#pagebreak()
-
 === Klammerbalancierung
 $\#_a (w)$ ist die Anzahl $a$ in $w$.
 
@@ -175,7 +196,7 @@ Mit dieser Belegung definieren wir die Semantik der Aussagenlogik wie folgt:
     &(phi arrow.r.l psi)^frak(I) &&:= ((phi and psi) or (not phi and not psi))^frak(I)
   $
 ]
-#pagebreak()
+
 === Modell
 Eine Interpretation $frak(I)$ einer Formel $phi$ mit $phi^frak(I) = 1$.
 
