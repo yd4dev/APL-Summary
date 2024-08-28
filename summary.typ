@@ -52,7 +52,6 @@
           #(l_index = l_index + 1)] else [
           #list(entry)
         ]
-
       ]
     ],
     align(right)[
@@ -464,3 +463,50 @@ Die einzige *Regel im Resolutionskalkül* ist wie folgt:
 *DPLL-Algorithmus*:
 - rekursiver Algorithmus für SAT
 - Erfüllbarkeit von $phi$ wird zurückgeführt auf Erfüllbarkeit von $phi[p arrow.r.bar 0]$ und $phi[p arrow.bar.r 1]$.
+
+= Prädikatenlogik
+Erweitert die Aussagenlogik durch
+- Funktionen und Konstanten
+- Prädikate und Relationen
+- Quantoren
+
+=== Terme
+Terme beschreiben *Elemente des Datenbereichs* und bestehen aus
+- Konstanten,
+- Variablen und
+- Funktionen.
+
+=== Formeln
+Formeln treffen *Aussagen über Elemente des Datenbereichs* und werden gebildet aus
+- Termen,
+- Prädikaten / Relationen,
+- logischen Junktoren und
+- Quantoren.
+
+== Signaturen und Strukturen
+- Eine *Struktur* beschreibt:\ eine Menge zusammen mit Operationen oder Beziehungen auf der Menge.
+- Eine *Signatur* legt fest, welche Art von Konstanten, Funktionen und Relationen bei den Strukturen von Interesse vorkommen sollen.
+
+=== Signaturen
+Eine Signatur ist ein 4-Tupel $S = (cal(C), cal(F), cal(R), a r)$, wobei
+#definition((
+  ($cal(C)$ + " eine Menge ist,", "Konstanten"),
+  ($cal(F)$ + " eine Menge ist,", "Funktionssymbole"),
+  ($cal(R)$ + " eine Menge ist und", "Relationssymbole/Prädikatssymbole"),
+  ($a r: cal(F) union cal(R) arrow.r NN_(gt 0)$ + " eine Abbildung ist", "Arität / Stelligkeit"),
+))
+Hierbei verlangen wir, dass die Mengen $cal(C), cal(F) text("und") cal(R)$ disjunkt sind.
+- Eine Funktion $f$ ist *$n$-stellig* und hat *Arität* $n$, wenn $a r(f) = n$ gilt.
+- Eine Funktion $R$ ist *$n$-stellig* und hat *Arität* $n$, wenn $a r(R) = n$ gilt.
+*Zusatzvoraussetzungen für die Prädikatenlogik*:
+- Es gibt eine Variablenmenge $V$.
+- Die Symbole $cal(C), cal(F)$ und $cal(R)$ kommen nicht in der Variablenmenge $V$ und nicht in der Menge ${not, and, or, arrow.r, arrow.l.r, exists, forall, =, (,)}$ vor.
+
+=== Strukturen zu Signaturen
+Sei $S = (cal(C), cal(F), cal(R), a r)$ eine Signatur. Eine *Struktur der Signatur $S$* auch ($S$-Struktur) ist ein Paar $cal(A) = (A,frak(a))$ bestehend aus
+- einer nicht-leeren Menge $A$, dem *Träger* (auch *Trägermenge* oder *Datenbereich*), und
+- einer Funktion $frak(a)$, genannt *Interpretation der Symbole*, die
+  - jedem Konstantensymbol $c in cal(C)$ ein Element $frak(a)(c) in A$ zuordnet,
+  - jedem Funktionssymbol $f in cal(F)$ eine Funktion $frak(a)(f): A^(a r(f)) arrow.r A$ zuorndet und
+  - jedem Relationssymbol $R in cal(R)$ eine Relation $frak(a)(R) subset.eq A^(a r(R))$ zuordnet.
+Wir schreiben auch jeweils $c^cal(A), f^cal(A), R^cal(A)$ statt $frak(a)(c), frak(a)(f), frak(a)(R)$.
