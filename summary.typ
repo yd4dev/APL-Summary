@@ -73,7 +73,7 @@
   strong(it)
 }
 
-#outline(depth: 2, indent: auto)
+#outline(depth: 2, indent: auto, title: "Inhalt")
 
 = Logik
 == Komponenten
