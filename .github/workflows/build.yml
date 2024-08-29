@@ -8,9 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Font
       - uses: fontist/setup-fontist@v2
-      - run: fontist install "EuroFix"
+      - name: Install Font
+        run: fontist install "EuroFix"
       - name: Checkout
         uses: actions/checkout@v3
       - name: Typst
