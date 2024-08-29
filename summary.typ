@@ -24,6 +24,10 @@
 
 #let AL = text("AL")
 
+#let ar = text("ar")
+
+#let FO = text("FO")
+
 
 #let name(body) = {
   set text(red)
@@ -39,7 +43,7 @@
     #l.push(entry.at(0)))
     #r.push(entry.at(1))
   ]
-
+    columns: (1fr, auto),
   let l_index = 1
 
   return grid(
@@ -488,32 +492,32 @@ Formeln treffen *Aussagen über Elemente des Datenbereichs* und werden gebildet 
 - Eine *Signatur* legt fest, welche Art von Konstanten, Funktionen und Relationen bei den Strukturen von Interesse vorkommen sollen.
 
 === Signaturen
-Eine Signatur ist ein 4-Tupel $S = (cal(C), cal(F), cal(R), a r)$, wobei
+Eine Signatur ist ein 4-Tupel $S = (cal(C), cal(F), cal(R), ar)$, wobei
 #definition((
   ($cal(C)$ + " eine Menge ist,", "Konstanten"),
   ($cal(F)$ + " eine Menge ist,", "Funktionssymbole"),
   ($cal(R)$ + " eine Menge ist und", "Relationssymbole/Prädikatssymbole"),
-  ($a r: cal(F) union cal(R) arrow.r NN_(gt 0)$ + " eine Abbildung ist", "Arität / Stelligkeit"),
+  ($ar: cal(F) union cal(R) arrow.r NN_(gt 0)$ + " eine Abbildung ist", "Arität / Stelligkeit"),
 ))
 Hierbei verlangen wir, dass die Mengen $cal(C), cal(F) text("und") cal(R)$ disjunkt sind.
-- Eine Funktion $f$ ist *$n$-stellig* und hat *Arität* $n$, wenn $a r(f) = n$ gilt.
-- Eine Funktion $R$ ist *$n$-stellig* und hat *Arität* $n$, wenn $a r(R) = n$ gilt.
+- Eine Funktion $f$ ist *$n$-stellig* und hat *Arität* $n$, wenn $ar(f) = n$ gilt.
+- Eine Funktion $R$ ist *$n$-stellig* und hat *Arität* $n$, wenn $ar(R) = n$ gilt.
 *Zusatzvoraussetzungen für die Prädikatenlogik*:
 - Es gibt eine Variablenmenge $V$.
 - Die Symbole $cal(C), cal(F)$ und $cal(R)$ kommen nicht in der Variablenmenge $V$ und nicht in der Menge ${not, and, or, arrow.r, arrow.l.r, exists, forall, =, (,)}$ vor.
 
 === Strukturen zu Signaturen
-Sei $S = (cal(C), cal(F), cal(R), a r)$ eine Signatur. Eine *Struktur der Signatur $S$* auch ($S$-Struktur) ist ein Paar $cal(A) = (A,frak(a))$ bestehend aus
+Sei $S = (cal(C), cal(F), cal(R), ar)$ eine Signatur. Eine *Struktur der Signatur $S$* auch ($S$-Struktur) ist ein Paar $cal(A) = (A,frak(a))$ bestehend aus
 - einer nicht-leeren Menge $A$, dem *Träger* (auch *Trägermenge* oder *Datenbereich*), und
 - einer Funktion $frak(a)$, genannt *Interpretation der Symbole*, die
   - jedem Konstantensymbol $c in cal(C)$ ein Element $frak(a)(c) in A$ zuordnet,
-  - jedem Funktionssymbol $f in cal(F)$ eine Funktion $frak(a)(f): A^(a r(f)) arrow.r A$ zuorndet und
-  - jedem Relationssymbol $R in cal(R)$ eine Relation $frak(a)(R) subset.eq A^(a r(R))$ zuordnet.
+  - jedem Funktionssymbol $f in cal(F)$ eine Funktion $frak(a)(f): A^(ar(f)) arrow.r A$ zuorndet und
+  - jedem Relationssymbol $R in cal(R)$ eine Relation $frak(a)(R) subset.eq A^(ar(R))$ zuordnet.
 Wir schreiben auch jeweils $c^cal(A), f^cal(A), R^cal(A)$ statt $frak(a)(c), frak(a)(f), frak(a)(R)$.
 
 === Vereinfachte Sprech- und Schreibweisen
 - Wir werden auch einfach von Strukturen sprechen, wenn aus dem Kontext klar wird, dass es sich um $S$-Strukturen für eine bestimmte Signatur $S$ handelt.
-  - Wir schreiben für eine Signatur $ S = ({c_1,dots,c_(|cal(C)|)},{f_1,dots,f_(|cal(F)|)},{r_1,dots,r_(|cal(R)|)}, a r)$ auch einfach
+  - Wir schreiben für eine Signatur $ S = ({c_1,dots,c_(|cal(C)|)},{f_1,dots,f_(|cal(F)|)},{r_1,dots,r_(|cal(R)|)}, ar)$ auch einfach
   - $S = (c_1,dots,c_(|cal(C)|), f_1,dots,f_(|cal(F)|),r_1,dots,r_(|cal(R)|)$,
   wenn die Aufteilung auf Konstanten, Funktionen und Relationen sowie die Aritäten aus dem Kontext klar werden.
 - Ebenso schreiben wir eine Struktur
@@ -529,7 +533,7 @@ Für eine Signatur $S = (cal(C), cal(F), cal(R), a r)$ ist die Menge der $S"-Ter
     ($c in T(S)$ + " für alle Konstanten " + $c in cal(C)$ + ",", "Konstanten"),
     ($v in T(S)$ + " für alle Variablen " + $v in V$ + " und", "Variablen"),
     (
-      $f(t_1,dots,t_(a r(f))) in T(S)$ + " für alle " + $f in cal(F)$ + " und Terme " + $t_1,dots,t_(a r(f)) in T(
+      $f(t_1,dots,t_(ar(f))) in T(S)$ + " für alle " + $f in cal(F)$ + " und Terme " + $t_1,dots,t_(ar(f)) in T(
           S
         )$ + ".",
       "Funktionen",
