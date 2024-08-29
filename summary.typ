@@ -81,13 +81,6 @@
 - *Semantik*: Legt die Bedeutung der Aussagen fest und wie diese Ausdrücke interpretiert werden sollen.
 - *Deduktives System/Beweiskalkül*: Beschreibt die Methoden und Regeln, mit denen aus wahren Aussagen weitere wahre Aussagen abgeleitet oder bewiesen werden können.
 
-== Eigenschaften
-- *Ausdrucksstärke*: Welche Aussagen lassen sich in der Logik ausdrücken?
-- *Korrektheit*: Sind alle in einem deduktiven System der Logik beweisbaren Aussagen der Logik wahr?
-- *Vollständigkeit*: Sind alle wahren Aussagen in einem deduktiven System der Logik beweisbar?
-- *Entscheidbarkeit*: Können wir mit einem Algorithmus feststellen, ob eine Aussage wahr ist?
-- *Automatisierbarkeit*: Was können wir automatisieren?
-
 = Aussagenlogik
 Ermöglicht Formalisierung von Argumenten. Grundlage für Boolesche Algebra und Schaltkreise. Mögliche Anwendung: Software-Verifikation, Datenbanken, KI.
 == Syntax
@@ -123,7 +116,7 @@ Die *Formeln* (Aussagen) sind folgendermaßen definiert:
       "Variablen",
     ),
     (
-      $text("Für alle") phi, psi in text("AL ist")$ + definition((
+      $text("Wenn") phi, psi in AL text("dann")$ + definition((
         (
           $(not psi) in AL$,
           "Negation",
@@ -147,17 +140,11 @@ Die *Formeln* (Aussagen) sind folgendermaßen definiert:
       )),
       "",
     ),
-    (
-      $AL$ + " ist die kleinste Menge, die die Eigenschaften 1., 2. und 3. erfüllt.",
-      "",
-    ),
   ),
   num: true,
 )
 
 === Klammerbalancierung
-$\#_a (w)$ ist die Anzahl $a$ in $w$.
-
 + Jedes echte nicht-leere Präfix $psi$ einer Formel hat mehr öffnende als schließende Klammern: $\#_(\() (psi)> \#_(\)) (psi)$.
 + Alle Formeln haben gleich viele öffnende wie schließende Klammern: $\#_(\() (psi)= \#_(\)) (psi)$.
 
@@ -166,7 +153,7 @@ Daraus folgt:
 - Jede Formel beginnt mit $($ und endet mit $)$.
 
 === Eindeutigkeitssatz
-Für jede Formel $phi$ ist atomar oder entsteht auf eindeutige Weise aus kürzeren Formeln.
+Jede Formel $phi$ ist atomar oder entsteht auf eindeutige Weise aus kürzeren Formeln.
 
 === Klammern weglassen
 Um Formeln wie $((not phi) or ((not psi) and (not phi)))$ zu vermeiden, lassen wir Klammern weg. \
@@ -183,22 +170,8 @@ Die Semantik einer Logik ordnet den Formeln eine Bedeutung zu. \
 Um den Wahrheitswert von Formeln zu bestimmen, definieren wir unsere Aussagenvariablen $BB := {0, 1}$ als die Menge der *Booleschen Konstanten*.
 
 === Interpretationen (Belegungen)
-Eine Belegung der Variablen bezeichnen wir mit $frak("I")$.
-
-Mit dieser Belegung definieren wir die Semantik der Aussagenlogik wie folgt:
-
-#align(center)[
-  $
-    &0^J &&:= 0\
-    &1^J &&:= 1\
-    &p_i^frak(I) &&:= J(p_i) \
-    &(not phi)^frak(I) &&:= 1 - phi^frak(I) \
-    &(phi or psi)^frak(I) &&:= max(phi^frak(I), psi^frak(I)) \
-    &(phi and psi)^frak(I) &&:= min(phi^frak(I), psi^frak(I)) \
-    &(phi arrow.r psi)^frak(I) &&:= (not phi or psi)^frak(I) \
-    &(phi arrow.r.l psi)^frak(I) &&:= ((phi and psi) or (not phi and not psi))^frak(I)
-  $
-]
+Eine Belegung der Variablen bezeichnen wir mit $frak(I): V arrow.r BB$. \
+Dadurch erhält $phi^frak(I)$ einen offensichtlichen Wahrheitswert in $BB$.
 
 === Modell
 Eine Interpretation $frak(I)$ einer Formel $phi$ mit $phi^frak(I) = 1$.
@@ -223,16 +196,12 @@ Eine Interpretation $frak(I)$ einer Formel $phi$ mit $phi^frak(I) = 1$.
     Sprechweisen: \
     Gilt $frak(I) models phi$ so sagen wir:
     - $frak(I)$ erfüllt $phi$,
-    - $frak(I)$ erfüllt $phi$,
+    - $frak(I)$ ist Modell von $phi$,
     - $phi$ ist wahr unter $frak(I)$.
   ],
 )
 === Irrelevanz nicht vorkommender Variablen (Koinzidenzlemma)
 Der Wahrheitswert einer Formel $phi$ hängt nur von der Belegung der in $phi$ vorkommenden Variablen ab.
-- Wir müssen daher nur endlich viele Belegungen prüfen, um die möglichen Wahrheitswerte zu bestimmen.
-- Zum Beispiel alle Belegungen, bei denen nicht vorkommende Variablen = 0 sind.
-
-Notation:
 - Wir schreiben $phi(p_1,dots,p_t)$, um anzudeuten, dass die Variablen ${p_1,dots,p_t}$ in der Formel $phi$ vorkommen.
 === Erfüllbarkeit, Tautologien und Widersprüchlichkeit
 + Eine Formel $phi$ heißt *Tautologie* (oder *allgemeingültig*), geschrieben $models phi$, falls $phi^frak(I) = 1$, falls $phi^frak(I) = 1$ für jede Belegung $frak(I)$.
@@ -244,25 +213,17 @@ Die *Menge der Tautologien TAUT* ist eine Teilmenge von *SAT, der Menge aller er
 
 == Semantische Folgerung
 Die Formel $phi$ ist *logische Folgerung* von $Phi$, falls für jede Interpretation
-$frak(I)$, die $Phi$ erfüllt, $phi^frak(I) = 1$ gilt.
+$frak(I)$, die $Phi$ erfüllt, $phi^frak(I) = 1$ gilt. Wir schreiben $Phi models phi$.
 
-=== Grundlegende semantische Folgerungen
-+ $phi$ ist allgemeingültig genau dann, wenn $not phi$ widerspruchsvoll ist.
-+ Es gilt $emptyset models phi$ genau dann, wenn $phi$ Tautologie ist, also $models phi$.
-+ Ist $Phi$ nicht erfüllbar, dann gilt $Phi models phi$ für alle $phi in AL$.
-+ Sei $Phi' subset.eq Phi$. Ist $Phi$ erfüllbar, dann ist auch $Phi'$ erfüllbar.
-+ Es gilt $Phi models psi$ für alle $psi in Phi$.
-+ Falls $Phi' subset.eq Phi$, dann impliziert $Psi' models phi$ auch $Psi models phi$.
-+ Es gilt $Phi models phi$ genau dann, wenn $Phi union {not phi}$ nichr erfüllbar ist.
 === Entscheidbarkeit semantischer Fragen
 + Es ist entscheidbar, ob eine endliche Menge $Phi subset.eq AL$ erfüllbar ist.
 + Es ist entscheidbar, ob für eine gegebene endliche Menge $Phi subset.eq AL$ und ein $phi in AL$ gilt, dass $Phi models phi$.
 + Die Mengen $text("TAUT")$ und $text("SAT")$ sind entscheidbar.
 
 === Deduktionstheorem (semantische Version)
-$Phi union {phi} models psi$ genau dann, wenn $Phi models (phi arrow.r psi)$ gilt.
+- $Phi union {phi} models psi$ genau dann, wenn $Phi models (phi arrow.r psi)$ gilt.
 === Modus Ponens (semantische Version)
-- Es gilt ${phi, phi models psi} models psi$
+- ${phi, phi arrow.r psi} models psi$
 
 == Logische Äquivalenz
 Formeln heißen *logisch äquivalent*, geschrieben $phi equiv psi$, falls für jede Belegung $frak(I)$ gilt: $phi^frak(I) = psi^frak(I)$.
@@ -294,15 +255,13 @@ Eine Normalform einer Formel $phi$ ist eine äquivalente Formel $T(phi)$, die ge
 - Für $p in V$ sind $p$ und $not p$ in Negationsnormalform.
 - Sind $phi, psi$ in Negationsnormalform, dann sind auch $(phi or psi)$ und $(phi and psi)$ in Negationsnormalform.
 === Konjunktive und Disjunktive Normalformen
-- Eine Formel $phi$ heißt *Literal*, wenn $phi in V$ oder $phi = (not phi')$ mit $phi' in V$.
-- Eine Formel $phi$ heißt *Klausel*, wenn $phi$ eine Disjunktion (Veroderung) von Literalen.
+- *Literal*: Variable oder negierte Variable
+- *Klausel*: Disjunktion von Literalen.
   - Hat eine Klausel höchstens höchstens $k$ Literale, heißt sie *k-Klausel*.
   - 1-Klauseln werden *Unit-Klauseln* genannt.
-- Eine Formel $phi$ ist in *konjunktiver Normalform*, wenn $phi$ eine Konjunktion (Verundung) von Klauseln ist.
+- Eine Formel $phi$ ist in *konjunktiver Normalform*, wenn $phi$ eine Konjunktion von Klauseln ist.
 
-  - Analog: Eine Formel ist in *disjunktiver Normalform*, wenn sie eine Disjunktion (Veroderung) von Konjunktionen (Verundungen) ist.
-
-Zu jeder Booleschen Funktion $f$ gibt es eine KNF-Formel mit $l$ Variablen der Länge $O(l 2^l)$
+  - Analog: Eine Formel ist in *disjunktiver Normalform*, wenn sie eine Disjunktion von Konjunktionen ist.
 === Konjunktive Normalform als Menge
 - Da Konjunktionen und Disjunktionen assoziativ sind, ist die Reihenfolge der Literale in Klauseln und der Klauseln in einer Formel in KNF irrelevant.
   - Daher können wir Klauseln als *Mengen von Literalen* auffassen und KNF-Formeln als *Mengen von Klauseln*.
@@ -313,11 +272,7 @@ Die Formelmenge $Phi$ ist genau dann erfüllbar, wenn jede *endliche* Teilemge v
 
 = Kalküle und Algorithmen für die Aussagenlogik
 == Deduktive Systeme und Kalküle
-Ein *deduktives System* (auch *Beweiskalkül*) besteht aus Axiomen und Regeln, mit denen wir wahre Aussagen/Formeln ableiten (formal beweisen). \
-Wir haben also zwei Möglichkeiten die Gültigkeit von Formeln zu prüfen:
-- Durch Anwendung der Semantik.
-- Durch Ableiten in einem deduktiven System.
-
+Ein *deduktives System* (auch *Beweiskalkül*) besteht aus Axiomen und Regeln, mit denen wir wahre Aussagen/Formeln ableiten (formal beweisen). \ \
 Ein *deduktives System* $cal(F)$ besteht aus
 #definition(
   (
@@ -340,7 +295,6 @@ Ein *deduktives System* $cal(F)$ besteht aus
   ),
   num: true,
 )
-Für eine Regel $r = (phi_1,dots,phi_n,phi) in R$ schreiben wir auch $frac(phi_1\,dots\,phi_n,phi)$. \
 Die Formeln $phi_1,dots,phi_n$ heißen *Prämissen*, und die Formel $phi$ heißt *Konklusion* von $r$. \
 
 Das System heißt *entscheidbar*, wenn die Mengen $F, A x$ und $R$ entscheidbar sind.
@@ -348,6 +302,7 @@ Das System heißt *entscheidbar*, wenn die Mengen $F, A x$ und $R$ entscheidbar 
 Ein deduktives System heißt
 - *korrekt*, wenn alle herleitbaren Aussagen gültig sind, und
 - *vollständig*, wenn alle gültigen Aussagen herleitbar sind.
+Für eine Regel $r = (phi_1,dots,phi_n,phi) in R$ schreiben wir auch $frac(phi_1\,dots\,phi_n,phi)$.
 
 === Herleitbarkeit in Deduktiven Systemen
 Die Menge $T(cal(F))$ der *Theoreme* des deduktiven Systems $cal(F)$ ist induktiv definiert durch:
@@ -380,35 +335,29 @@ Ax1: $A arrow.r (B arrow.r A)$ \
 Ax2: $(A arrow.r (B arrow.r C)) arrow.r ((A arrow.r B) arrow.r (A arrow.r C))$ \
 Ax3: $(not A arrow.r not B) arrow.r (B arrow.r A)$ \
 *Regeln*: \
-MP: $frac(A\,(A arrow.r B), B)$ (modus ponens)
-
+MP: $frac(A\,(A arrow.r B), B)$ (modus ponens) \ \
 Das System $cal(P)_2$ ist korrekt und vollständig.
 
 === Der Sequenzenkalkül
 Sei $F$ eine Menge von Formeln. \
 Eine *Sequenz* ist ein Paar $(Gamma, Delta)$, geschrieben $Gamma arrow.double\ _G Delta$, wobei $Gamma,Delta subset.eq F$ endliche Mengen sind. \
-
-Die Sequenz ${phi_1,dots,phi_n} arrow.double\ _G {psi_1,dots,psi_m}$ entspricht semantisch $(phi_1 and dots and phi_n) arrow.r (psi_1 or dots or psi_m)$
-
-Die Menge der *Sequenzen* bezeichnen wir mit $F_G$.
-
-
-
-Axiome
+Die Sequenz ${phi_1,dots,phi_n} arrow.double\ _G {psi_1,dots,psi_m}$ entspricht semantisch $(phi_1 and dots and phi_n) arrow.r (psi_1 or dots or psi_m)$ \
+Die Menge der *Sequenzen* bezeichnen wir mit $F_G$. \
+*Axiome*
 #grid(
   columns: (1fr, 1fr, 1fr),
   align: center,
   [
-    (Ax)$frac("",Gamma\, A arrow.double\ _G A\, Delta)$
+    $(A x) frac("",Gamma\, A arrow.double\ _G A\, Delta)$
   ],
   [
-    (0-Ax)$frac("",Gamma\,0 arrow.double\ _G Delta)$
+    $(0-A x)frac("",Gamma\,0 arrow.double\ _G Delta)$
   ],
   [
-    (1-Ax)$frac("",Gamma arrow.double\ _G 1\, Delta)$
+    $(1-A x)frac("",Gamma arrow.double\ _G 1\, Delta)$
   ],
 )
-Regeln
+*Regeln*
 #grid(
   columns: (1fr, 1fr),
   align: center,
@@ -449,8 +398,7 @@ deutlich umständlicher).
 
 === Resolution
 Resolution ist ein Beweiskalkül, mit dem wir die Unerfüllbarkeit von Formeln in konjunktiver Normalform nachweisen können. \
-Kann die *leere Klausel* $union.sq$ abgeleitet werden, dann ist die ursprüngliche Klauselmenge nicht erfüllbar.
-
+Kann die *leere Klausel* $union.sq$ abgeleitet werden, dann ist die ursprüngliche Klauselmenge nicht erfüllbar. \
 Für zwei Klauseln $phi_1, phi_2$ und eine Variable $p_i in V$ heißt die Klausel $phi = (phi_1 \\ {p_i}) union (phi_2 \\ {not p_i})$ die *Resolvente* von $phi_1$ und $phi_2$ nach $p_i$.
 
 Die einzige *Regel im Resolutionskalkül* ist wie folgt:
@@ -462,8 +410,7 @@ Die einzige *Regel im Resolutionskalkül* ist wie folgt:
 - Eine *Horn-Klausel* ist eine Klausel mit höchstens einem positiven Literal
 
 === Der DPLL-Algorithmus
-*Substitution*: Einsetzen eines Wahrheitswertes in eine Formel
-
+*Substitution*: Einsetzen eines Wahrheitswertes in eine Formel \
 *DPLL-Algorithmus*:
 - rekursiver Algorithmus für SAT
 - Erfüllbarkeit von $phi$ wird zurückgeführt auf Erfüllbarkeit von $phi[p arrow.r.bar 0]$ und $phi[p arrow.bar.r 1]$.
@@ -473,19 +420,6 @@ Erweitert die Aussagenlogik durch
 - Funktionen und Konstanten
 - Prädikate und Relationen
 - Quantoren
-
-=== Terme
-Terme beschreiben *Elemente des Datenbereichs* und bestehen aus
-- Konstanten,
-- Variablen und
-- Funktionen.
-
-=== Formeln
-Formeln treffen *Aussagen über Elemente des Datenbereichs* und werden gebildet aus
-- Termen,
-- Prädikaten / Relationen,
-- logischen Junktoren und
-- Quantoren.
 
 == Signaturen und Strukturen
 - Eine *Struktur* beschreibt:\ eine Menge zusammen mit Operationen oder Beziehungen auf der Menge.
