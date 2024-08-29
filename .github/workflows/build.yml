@@ -8,6 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: fontist/setup-fontist@v2
+      - name: Install Font
+        run: fontist install "Archivo"
       - name: Checkout
         uses: actions/checkout@v3
       - name: Typst
