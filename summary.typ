@@ -461,23 +461,67 @@ Wir schreiben auch jeweils $c^cal(A), f^cal(A), R^cal(A)$ statt $frak(a)(c), fra
 
 == Syntax
 === Terme
-Für eine Signatur $S = (cal(C), cal(F), cal(R), a r)$ ist die Menge der $S"-Terme"$, geschrieben $T(S)$, induktiv definiert:
-#definition(
-  (
-    ($c in T(S)$ + " für alle Konstanten " + $c in cal(C)$ + ",", "Konstanten"),
-    ($v in T(S)$ + " für alle Variablen " + $v in V$ + " und", "Variablen"),
-    (
-      $f(t_1,dots,t_(ar(f))) in T(S)$ + " für alle " + $f in cal(F)$ + " und Terme " + $t_1,dots,t_(ar(f)) in T(
-          S
-        )$ + ".",
-      "Funktionen",
-    ),
-    ($T(S)$ + " ist die kleinste Menge, die die Eigenschaften 1., 2. und 3. erfüllt.", ""),
-  ),
-  num: true,
+Für eine Signatur $S = (cal(C), cal(F), cal(R), ar)$ existiert die Menge der $S"-Terme"$, geschrieben $T(S)$. \
+Ein Term wird gebildet aus *Variablen*, *Konstanten* und *Funktionen*. \ \
+*Beispiele* für die Signatur $S = ({e}, {circle.small},{},ar)$ mit $ar(circle.small) = 2$:
+#grid(
+  columns: (1fr, 1fr, 1fr),
+  [- $e$], [- $x_1$], [- $circle.small(x_1, circle.small(e, x_1))$],
 )
-=== Vorkommende Variablen
-Die Menge der *vorkommenden Variablen $"var"(t)$* für einen Term $t in T(S)$ ist folgendermaßen induktiv definiert:
-+ $"var"(t) = {}$, falls $t = c$ für ein $c in cal(C)$,
-+ $"var"(t) = {p}$, falls $t = p$ für ein $p in V$, und
-+ $"var"(t) = "var"(t_1) union dots union "var"(t_(a r(f)))$, falls $t = f(t_1, dots, t_(a r(f)))$.
+
+
+=== Formeln
+Für eine Signatur $S = (cal(C), cal(F), cal(R), ar)$ existiert die Menge der *S-Formeln der Logik erster Stufe*, geschrieben $FO(S)$. \
+Eine *atomare Formel* wird gebildet aus *Termen* mit *Relationen und Gleichheit*:
+#grid(
+  columns: (1fr, 1fr, 1fr),
+  [- $x tilde y$], [- $R(x_1,x_2,x_3)$], [- $x = y$],
+)
+Eine *Formel* beinhaltet zusätzlich *logische Junktoren* und *Quantoren*:
+#grid(
+  columns: (1fr, 3fr),
+  [- $forall x. exists y. x > y$],
+  [- $forall epsilon. exists delta. (epsilon > 0 and delta > 0) arrow.r (
+          forall x. |x - x_0| lt.eq delta arrow.r |f(x) - f(x_0)| lt.eq epsilon
+        )$],
+)
+
+=== Vorkommende, freie und gebundene Variablen
+Die Menge der *vorkommenden Variablen $"var"(t)$* ($"var"(phi)$) für einen Term $t$ (Formel $phi$) ist die Menge der $p in V$, die in $t$ ($phi$) vorkommen.\
+Die Menge $"free"(phi)$ einer Formel $phi$ beinhaltet alle freien Variablen, also jene vor denen kein Quantor steht.\
+Die Menge $"bound"(phi)$ einer Formel $phi$ beinhaltet alle Variablen, vor denen ein Quantor steht.\
+Es gilt: $"var"(phi) = "free"(phi) union "bound"(phi)$.\
+Formeln die keine freien Variablen haben, heißen *abgeschlossen*.
+
+=== Eindeutigkeitssatz
+- Jeder Term und jede atomare Formel lässt sich *eindeutig* aus Teiltermen bilden.
+- Jede nicht-atomare Formel lässt sich *eindeutig* aus Teilformeln bilden.
+
+=== Notationen
+#grid(
+  columns: (1fr, 1fr),
+  [
+    *Präfixnotation* \
+    Beispiele:
+    - $f x y z$ steht für $f(x, y, z)$, wobei $ar(f) = 3$.
+    - $+a+b c$ steht für $(a+(b+c))$.
+    - $++a b c$ steht für $((a+b) +c)$.
+    - $R a b$ steht für $(a,b) in R$.
+  ],
+  [
+    *Infix-Notation* \
+    Beispiele:
+    - $a f b$ steht für $f(a,b)$ (falls $ar(f) = 2$).
+    - $a R b$ steht für $(a,b) in R$.
+  ],
+)
+
+*Weitere Konventionen*:
+Wir legen fest, dass die aussagenlogischen Operatoren stärker binden als $exists$ und $forall$. \
+Direkt aufeinanderfolgende gleiche Quantoren können wir ausfallen lassen.
+- Die Zeichenfolge $forall x_1x_2x_3.phi$ steht für die Formel $forall x_1.forall x_2.forall x_3.phi$.
+
+=== Quantorenrang
+Misst die Schachtelungstiefe der Quantoren der Formel.\
+- $"qr"((exists x.(not x = y arrow.r forall z.x > z)) or (exists x.x > y)) = 2$.
+
