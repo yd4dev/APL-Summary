@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: fontist/setup-fontist@v2
       - name: Install Font
-        run: fontist install "EuroFix"
+        run: fontist update && fontist install "Arial"
       - name: Checkout
         uses: actions/checkout@v3
       - name: Typst
