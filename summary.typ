@@ -43,11 +43,11 @@
     #l.push(entry.at(0)))
     #r.push(entry.at(1))
   ]
-    columns: (1fr, auto),
+
   let l_index = 1
 
   return grid(
-    columns: (1fr, 1fr),
+    columns: (1fr, auto),
     rows: (auto),
     align(left)[
       #for entry in l [
