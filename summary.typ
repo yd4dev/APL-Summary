@@ -1,6 +1,6 @@
 #show math.equation: set text(blue)
 
-#set text(font: "Arial")
+#set text(font: "Archivo")
 
 #set page(footer: context [
   #align(center)[
