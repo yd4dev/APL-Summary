@@ -510,3 +510,36 @@ Sei $S = (cal(C), cal(F), cal(R), a r)$ eine Signatur. Eine *Struktur der Signat
   - jedem Funktionssymbol $f in cal(F)$ eine Funktion $frak(a)(f): A^(a r(f)) arrow.r A$ zuorndet und
   - jedem Relationssymbol $R in cal(R)$ eine Relation $frak(a)(R) subset.eq A^(a r(R))$ zuordnet.
 Wir schreiben auch jeweils $c^cal(A), f^cal(A), R^cal(A)$ statt $frak(a)(c), frak(a)(f), frak(a)(R)$.
+
+=== Vereinfachte Sprech- und Schreibweisen
+- Wir werden auch einfach von Strukturen sprechen, wenn aus dem Kontext klar wird, dass es sich um $S$-Strukturen für eine bestimmte Signatur $S$ handelt.
+  - Wir schreiben für eine Signatur $ S = ({c_1,dots,c_(|cal(C)|)},{f_1,dots,f_(|cal(F)|)},{r_1,dots,r_(|cal(R)|)}, a r)$ auch einfach
+  - $S = (c_1,dots,c_(|cal(C)|), f_1,dots,f_(|cal(F)|),r_1,dots,r_(|cal(R)|)$,
+  wenn die Aufteilung auf Konstanten, Funktionen und Relationen sowie die Aritäten aus dem Kontext klar werden.
+- Ebenso schreiben wir eine Struktur
+  - $cal(A) = (A, frak(a))$ auch vereinfacht als
+  - $cal(A) = (A, c_1^cal(A),dots,c_(|cal(C)|)^cal(A), f_1^cal(A),dots,f_(|cal(F)|)^cal(A),R_1^cal(A),dots,R_(|cal(R)|)^cal(A)$,
+  wenn dadurch keine Verwechselungen entstehen können.
+
+== Syntax
+=== Terme
+Für eine Signatur $S = (cal(C), cal(F), cal(R), a r)$ ist die Menge der $S"-Terme"$, geschrieben $T(S)$, induktiv definiert:
+#definition(
+  (
+    ($c in T(S)$ + " für alle Konstanten " + $c in cal(C)$ + ",", "Konstanten"),
+    ($v in T(S)$ + " für alle Variablen " + $v in V$ + " und", "Variablen"),
+    (
+      $f(t_1,dots,t_(a r(f))) in T(S)$ + " für alle " + $f in cal(F)$ + " und Terme " + $t_1,dots,t_(a r(f)) in T(
+          S
+        )$ + ".",
+      "Funktionen",
+    ),
+    ($T(S)$ + " ist die kleinste Menge, die die Eigenschaften 1., 2. und 3. erfüllt.", ""),
+  ),
+  num: true,
+)
+=== Vorkommende Variablen
+Die Menge der *vorkommenden Variablen $"var"(t)$* für einen Term $t in T(S)$ ist folgendermaßen induktiv definiert:
++ $"var"(t) = {}$, falls $t = c$ für ein $c in cal(C)$,
++ $"var"(t) = {p}$, falls $t = p$ für ein $p in V$, und
++ $"var"(t) = "var"(t_1) union dots union "var"(t_(a r(f)))$, falls $t = f(t_1, dots, t_(a r(f)))$.
