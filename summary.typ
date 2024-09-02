@@ -525,3 +525,27 @@ Direkt aufeinanderfolgende gleiche Quantoren können wir ausfallen lassen.
 Misst die Schachtelungstiefe der Quantoren der Formel.\
 - $"qr"((exists x.(not x = y arrow.r forall z.x > z)) or (exists x.x > y)) = 2$.
 
+== Semantik
+=== Belegung
+Eine *Belegung* in einer Struktur $cal(A) = (A, frak(a))$ ist eine Abbildung $beta: V arrow.r A$. \
+Die *Menge aller Belegungen* wird mit $A^V$ bezeichnet.
+=== Interpretation
+Für eine Signatur $S$ ist eine *$S$-Interpretation* ein Paar $frak(I) = (cal(A), beta)$ bestehend aus einer $S$-Struktur $cal(A)$ und einer Belegung $beta$ in $cal(A)$.
+=== Semantik von Termen
+Sei $S = (cal(C), cal(F), cal(R), ar)$ eine Signatur und $frak(I) = (cal(A), beta)$ eine *$S$-Interpretation* (bestehend aus einer $S$-Struktur $cal(A) = (A, frak(a))$ und einer Belegung $beta$). \
+Die *Semantik* $t^frak(I) in A$ eines Terms $t in T(S)$ ist folgendermaßen definiert:
+$
+  c^frak(I) &:= c^cal(A) &&"für " t = c in cal(C)\
+  x^frak(I) &:= beta(x) &&"für " t = x in V\
+  f(t_1,dots,t_(ar(f)))^frak(I) &:= f^cal(A)(t_1^frak(I),dots,t_(ar(f))^frak(I)) &&"für " t = f(
+    t_1,dots,t_(ar(f))
+  ) "mit" f in cal(F).
+$
+=== Semantik von Formeln
+*Modifikation*:
+$
+  beta[x arrow.bar a](y) := brace &a, &&"falls" y = x \
+  &beta(y), space.quad &&"sonst".
+$
+
+*Semantik von Formeln*:
