@@ -548,4 +548,133 @@ $
   &beta(y), space.quad &&"sonst".
 $
 
-*Semantik von Formeln*:
+*Semantik von Formeln*:\
+Die Semantik $phi^frak(I) in BB$ einer Formel $phi in FO(S)$ für eine Signatur $S = (cal(C), cal(F), cal(R), ar)$ und eine $S$-Interpretation $frak(I) = (cal(A), beta)$ ist intuitiv gibt $phi$ intuitiv einen Wahrheitswert.\
+Beispiel:\
+Wir betrachten die Formel $ forall a. exists b. 2 dot b = a. $
+- Die Formel ist mit einer Interpretation der natürlichen Zahlen und der üblichen Multiplikation nicht erfüllt.
+- Über den rationalen Zahlen ist sie mit der üblichen Multiplikation erfüllt.
+
+=== Irrelevanz nicht-freier Variablen
+*Koinzidenzlemma*
+
+=== Notation für relevante Variablen
+- Wir schreiben $t(x_1,dots,x_n)$, um anzudeuten, dass ${x_1,dots,x_n} supset.eq "var"(t)$ für einen Term $t in T(S)$.
+- Wir schreiben $phi(x_1,dots,x_n)$, um anzudeuten, dass ${x_1,dots,x_n} supset.eq "free"(phi)$ für eine Formel $phi in FO(S)$.
+
+=== Die Modellbeziehung
+Ein *Modell* einer Formel $phi in FO(S)$ ist eine $S$-Interpretation $frak(I)$ mit $phi^frak(I) = 1$.\
+$frak(I) models phi$
+
+== Semantische Folgerung und Äquivalenz
+=== Semantischer Folgerungsbegriff
+Die Formel $phi$ ist *logische Folgerung* der Formelmenge $Phi$, falls für jede $S$-Interpretation $frak(I)$, die $Phi$ erfüllt, $phi^frak(I) = 1$ gilt.
+Wir schreiben $Phi models phi$.
+=== Logische Äquivalenz
+Formeln $phi, psi in FO(S)$ heißen *logisch äquivalent*, geschrieben $phi equiv psi$, wenn $phi models psi$ und $psi models phi$ gelten.
+
+=== Vertauschung von Quantoren
+$
+  &"Für jede Formel gilt" &&exists x forall y phi models forall y exists x phi.\
+  &"Es gibt Formeln für die gilt" space.quad space.quad &&forall x exists y phi cancel(models) exists y forall x phi.
+$
+
+== Substitution
+Mit einer simultanen Substitution $[x_1 arrow.r.bar t_1, dots, x_r arrow.r.bar t_r]$ ersetzen wir freie Vorkommnisse von Variablen $x_1,dots,x_r$ jeweils durch Terme $t_1, dots, t_r$. \
+Wir betrachten zuerst die Substitution in Termen.\
+*Beispiel*:
+$
+  &"Es ist" f(x_1,x_2)[x_2 arrow.bar x_3] &&"gleich" f(x_1,x_3)\
+  &"Es ist" (x+y)\/c [x arrow.bar y, y arrow.bar c dot x] space.quad &&"gleich" (y+c dot x)\/c
+$
+
+=== Substitution in Formeln
+Um innerhalb des Geltungsbereichs eines Quantors zu substituieren, benennen wir (falls nötig) erst die gebundene Variable $x$ zu einer Variable $u$ um, die nicht vorkommt, und substituieren dann.
+
+= Normalformen
+== Pränexnormalform
+Eine Formel ist *bereinigt*, wenn
+- keine Variable sowohl frei als auch gebunden vorkommt und
+- jede Variable höchstens einmal gebunden wird.\
+In der *Pränexnormalform* stehen Quantoren am Anfang der Formel (also möglichst weit außen).\
+Eine Formel ist in *bereinigter Pränexnormalform (BPF)*, wenn sie in Pränexnormalform und bereinigt ist.
+
+== Skolemnormalform
+Für unsere nächste Normalform werden wir keine logische Äquivalenz verlangen, sondern nur Erfüllbarkeitsäquivalenz.
+
+Zwei Formeln heißen *erfüllbarkeitsäquivalent*, wenn beide erfüllbar sind oder keine der Formeln
+erfüllbar ist.\
+\
+=== Skolemisierung
+Ziel: existenzielle Quantoren in einer Formel eliminieren
+- Wir werden von der neuen Formel nur *Erfüllbarkeitsäquivalenz* verlangen.
+- Wir werden die Signatur erweitern.
+Die Ersetzung existenzieller Quantoren durch neue Funktionssymbole heißt *Skolemisierung*.
+\ \
+=== Skolemform
+Folgender Algorithmus berechnet eine Skolemform einer Formel in Pränexnormalform, indem
+die Existenzquantoren von vorne nach hinten ersetzt werden.\
+*Input*: Eine Formel $phi$ in bereinigter Pränexnormalform.\
+*Output*: Eine erfüllbarkeitsäquivalente Formel in Skolemform.\ \
+1: *while* $phi$ enthält Existenzquantoren *do*\
+2: $space.quad$ Zerlege $phi = forall y_1 dots forall y_n exists z.psi$. \// möglicherweise n = 0\
+3: $space.quad$ Sei $f in "Sko"$ ein Skolemsymbol, das nicht in $psi$ vorkommt.\
+4: $space.quad$ Setze $ar(f) = n$.\
+5: $space.quad$ Ersetze $phi$ durch $forall y_1 dots forall y_n (psi[z arrow.bar f(y_1, dots , y_n)])$.\
+6: *end while*\
+7: *return* $phi$ in Skolem-Normalform.\ \
+=== Existenzieller und universeller Abschluss
+Sei $phi in FO(S)$ eine Formel mit $"free"(phi) = {x_1,dots,x_n}$.
+- Die Formel $forall x_1 , dots forall x_n . phi$ heißt *universeller Abschluss* von $phi$.
+- Die Formel $exists x_1 , dots exists x_n . phi$ heißt *existenzieller Abschluss* von $phi$.
+
+Der universelle Abschluss von $phi$ ist genau dann *allgemeingültig*, wenn $phi$ *allgemeingültig* ist.\
+Der existentielle Abschluss von $phi$ ist genau dann *erfüllbar*, wenn $phi$ *erfüllbar* ist.
+\ \
+
+= Berechnungsprobleme in der Prädikatenlogik
+Gibt es einen Algorithmus, der entscheidet, ob eine gegebene Formel erfüllbar (allgemeingültig) ist?
+== Herbrand-Strukturen
+- Um zu entscheiden, ob eine Formel $phi in FO(S)$ allgemeingültig (oder unerfüllbar) ist, müssen wir a priori alle $S$-Strukturen $cal(A) = (D, frak(I))$ in Betracht ziehen.
+
+Wir werden nun argumentieren, dass es ausreicht, sich auf bestimmte, algorithmisch
+handhabbare Strukturen, die sogenannten *Herbrand-Strukturen*, einzuschränken.
+
+=== Variablenfreie Terme und Formeln
+Wir bezeichnen mit $FO_"abg" (S)$ die Menge der abgeschlossenen Formeln (also Formeln ohne freie Variablen) in $FO(S)$. \
+Für eine abgeschlossene Formel $phi$ ist $phi^frak(I)$ mit $frak(I) = (cal(A), beta)$ unabhängig von der Belegung $beta$.\
+*Schreibweisen*: Sei $cal(A)$ eine $S$-Struktur.
+- Für eine abgeschlossene Formel bezeichne $phi^cal(A)$ den Wahrheitswert von $phi^frak(I)$ für eine (und damit alle) Interpretationen der Form $frak(I) = (cal(A), beta)$.
+- Wir schreiben auch $cal(A) models phi$, wenn $phi^cal(A) = 1$.
+
+=== Einschränkung auf gleichheitsfreie Skolemform
+Für Fragen der Erfüllbarkeit können wir uns auf Formeln in Skolemform beschränken.\
+Der Einfachheit halber werden wir uns im Folgenden auf Formeln in $FO^eq.not (S)$ beschränken, also
+Formeln ohne Gleichheitszeichen.
+
+=== Herbrand-Struktur
+Für eine Signatur $S$ definieren wir den Datenbereich $D_cal(H)$, das *Herband-Universum*, als die kleinste Menge, für die gilt:
+$
+  &c in D_cal(H) &&"für alle Konstanten" c "von" S "und"\
+  &f(
+    t_1,dots,t_ar(f)
+  ) in D_cal(H), space.quad space.quad &&"falls" t_1,dots,t_ar(f) in D_cal(H) "und" f "eine Funktion von" S "ist."
+$
+\
+Eine $S$-Struktur der Form $cal(H) = (D_cal(H), frak(a))$ heißt *Herbrand-Struktur*, wenn für die Interpretation $frak(a)$ der Symbole gilt:
+- Für jede Konstante $c$ in $S$ ist $frak(a)(c)$ das Element $frak(a)(c) := c$ des Datenbereichs.
+- Für jede Funktion $f$ in $S$ ist $frak(a)(f)$ die Funktion $frak(a)(f): D_cal(H)^ar(f) arrow D_cal(H)$, für die gilt $frak(a)(f)(t_1,dots,t_ar(f)) := f(t_1,dots,t_ar(f))$.
+Falls $cal(H) models phi$ gilt, so heißt $cal(H)$ *Herbrand-Modell* von $phi$.\ \
+*Theorem* (Herbrand)\
+Sei $S$ eine Signatur mit mindestens einem Konstantensymbol. Eine abgeschlossene
+Formel $phi in FO^eq.not (S)$ in Skolemform ist genau dann erfüllbar, wenn sie ein Herbrand-Modell hat.
+\
+Wenn $phi in FO^eq.not (S)$ erfüllbar ist, dann besitzt $phi$ ein Modell mit abzählbarem (möglicherweise
+endlichem) Datenbereich.
+
+== Semi-Entscheidbarkeit der Allgemeingültigkeit
+=== Herbrand-Expansion
+Sei $phi equiv forall y_1 dots forall y_n.psi in FO^eq.not (S)$ eine abgeschlossene Formel in Skolemform, so dass $psi$ quantorenfrei ist. Die *Herbrand-Expansion* $E(phi)$ von $phi$ ist definiert als die Menge der Formeln
+$ E(phi) := {psi[y_1 arrow.bar t_1, dots, y_n arrow.bar t_n] | t_1,dots,t_n in D_cal(H)}, $
+die aus $psi$ durch Substitution der Variablen $psi$ durch Terme in $D_cal(H)$ entstehen.
+=== Die Expansionsformeln als Aussagen
